@@ -6,12 +6,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const morgan_1 = __importDefault(require("morgan"));
 const db_1 = __importDefault(require("./config/db"));
 const todosRoutes_1 = __importDefault(require("./routes/todosRoutes"));
 const app = express_1.default();
 const PORT = process.env.PORT || 5000;
 dotenv_1.default.config();
 db_1.default();
+app.use(morgan_1.default('dev'));
 app.use(cors_1.default());
 app.use(todosRoutes_1.default);
 app.listen(PORT, () => {
