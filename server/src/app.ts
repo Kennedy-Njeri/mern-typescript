@@ -1,7 +1,7 @@
 import express, { Express } from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
-
+import bodyParser from 'body-parser'
 import morgan from 'morgan'
 
 import connectDB from './config/db'
@@ -19,6 +19,7 @@ connectDB()
 
 app.use(morgan('dev'));
 app.use(cors())
+app.use(bodyParser.json());
 app.use(todoRoutes)
 
 
