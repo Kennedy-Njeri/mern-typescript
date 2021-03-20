@@ -31,7 +31,7 @@ const AddTodo: React.FC<Props1> = ({ history }) => {
 
     const [name, setName] = useState<string>('');
     const [description, setDescription] = useState<string>('');
-    const [status, setStatus] = useState<string>('');
+   
 
 
 
@@ -43,9 +43,7 @@ const AddTodo: React.FC<Props1> = ({ history }) => {
         setDescription(e.target.value);
     };
 
-    const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setStatus(e.target.value);
-    };
+    
 
     const layout = {
         labelCol: { span: 8 },
@@ -81,12 +79,8 @@ const AddTodo: React.FC<Props1> = ({ history }) => {
         history.push('/')
     };
 
-    const onFinishFailed = (errorInfo) => {
-        console.log("Failed:", errorInfo);
-    };
-
-
-
+   
+    
 
     const validateMessages = {
         required: '${label} is required!',
@@ -116,9 +110,7 @@ const AddTodo: React.FC<Props1> = ({ history }) => {
             </Form.Item>
         </Form>
     )
-
-
-
+    
 
     return (
         <Layout>

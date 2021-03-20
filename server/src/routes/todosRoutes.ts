@@ -3,6 +3,10 @@ import { getTodos, addTodo, updateTodo, deleteTodo, detailTodo } from "../contro
 
 const router: Router = Router()
 
+
+
+
+
 router.get("/todos", getTodos)
 
 router.post("/add-todo", addTodo)
