@@ -1,20 +1,20 @@
 import 'antd/dist/antd.css'
 import "../styles.css";
 import {Layout, Menu} from 'antd';
-import React, {Fragment, Props} from "react"
-import { Link, withRouter,  RouteComponentProps } from "react-router-dom";
-import { History } from 'history';
-const { Header, Content, Sider } = Layout;
+import React from "react"
+import { Link, withRouter } from "react-router-dom";
+//import { History } from 'history';
+const { Header } = Layout;
 
 
 
 
 
 
-interface Props1 {
-    history: History,
-    path: string
-}
+// interface Props1 {
+//     history: History,
+//     path: string
+// }
 
 
 // history must match with path which is /signup e.g

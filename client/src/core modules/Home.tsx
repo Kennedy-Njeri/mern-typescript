@@ -1,16 +1,26 @@
 import React, { useEffect, useState } from "react"
 import Layout from './Layout';
-import { Table, Tag, Space } from 'antd';
-import { ColumnsType } from 'antd/es/table';
-import axios, { AxiosResponse, AxiosRequestConfig } from 'axios'
+import { Table, Space, Button } from 'antd';
+import axios from 'axios'
 import { ITodo } from '../typesTodo'
+import {Link} from "react-router-dom";
 const baseUrl: string = 'http://localhost:5000'
+
+
 
 
 interface serverResponse {
     todos: ITodo[]
 }
 
+
+
+type ApiDataType = {
+    message: string
+    status: string
+    todos: ITodo[]
+    todo?: ITodo
+}
 
 
 
@@ -31,18 +41,13 @@ const Home = () => {
             key: 'description',
         },
         {
-            title: 'Status',
-            dataIndex: 'status',
-            key: 'status',
-        },
-        {
             title: 'Action',
             key: 'action',
-            render: (text, record) => (
-                <Space size="middle">
-                    <a>Delete</a>
+            render: (row) => {
+                return <Space size="middle">
+                    <a onClick={() => deleteTodo(row)}>Delete</a>
                 </Space>
-            ),
+            },
         },
     ];
     
@@ -57,8 +62,17 @@ const Home = () => {
              setTodoList(response.data.todos);
         });
     }
-
-
+    
+    
+    const deleteTodo = async (row) => {
+        if (window.confirm('Are you sure')) {
+            await axios.delete<ApiDataType>(`${baseUrl}/delete-todo/${row._id}`).then(response => {
+                //response.data
+                console.log(response.data.todos)
+                setTodoList(response.data.todos);
+            });
+        }
+    }
 
     
     useEffect(() => {
@@ -69,6 +83,7 @@ const Home = () => {
     return (
         <Layout>
 
+            <h4><Link to="/add-todo"><Button type="primary">Add Todo</Button></Link></h4>
             <>
             <Table columns={columns} dataSource={todos1} rowKey={todo => todo._id} pagination={false} />
             </>
