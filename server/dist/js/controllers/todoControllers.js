@@ -46,11 +46,10 @@ const updateTodo = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const { params: { id }, body, } = req;
         const updateTodo = yield todos_1.default.findByIdAndUpdate({ _id: id }, body);
-        const allTodos = yield todos_1.default.find();
+        //const allTodos: ITodo[] = await Todo.find()
         res.status(200).json({
             message: 'Todo updated',
             todo: updateTodo,
-            todos: allTodos,
         });
     }
     catch (error) {

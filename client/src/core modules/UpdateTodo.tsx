@@ -8,8 +8,9 @@ import { History } from 'history';
 const baseUrl: string = 'http://localhost:5000'
 
 
-interface serverResponse {
-    todos: ITodo[]
+interface detailResponse {
+    message: string,
+    todo: ITodo
 }
 
 
@@ -49,20 +50,19 @@ const UpdateTodo: React.FC<Props1> = ({ history, match }) => {
 
 
 
-    const data1 = async () => {
-        await axios.get<serverResponse>(baseUrl + '/todos', {
-            headers: {
-                "Content-Type": "application/json"
-            }}).then(response => {
+    const data1 = async (id) => {
+        await axios.get<detailResponse>(`${baseUrl}/todo/${id}`).then(response => {
             //response.data
-            console.log(response.data.todos)
+            console.log(response.data.todo)
+            setName(response.data.todo.name)
+            setDescription(response.data.todo.description)
         });
     }
 
 
     useEffect(() => {
-        data1()
-    }, [])
+        data1(id)
+    }, [id])
 
     const layout = {
         labelCol: { span: 8 },
@@ -80,14 +80,13 @@ const UpdateTodo: React.FC<Props1> = ({ history, match }) => {
 
         //Can directly call props here
 
-        const todo: Omit<ITodo, '_id'> = {
+        const todo: Partial<ITodo> = {
             name: name,
             description: description,
-            status: false,
         }
 
 
-        axios.post<ApiDataType>(baseUrl + '/add-todo',
+        axios.put<ApiDataType>(`${baseUrl}/edit-todo/${id}`,
             todo).then(response => {
             console.log(response.data)
             console.log(response.status)
@@ -120,11 +119,11 @@ const UpdateTodo: React.FC<Props1> = ({ history, match }) => {
 
     const UpdateForm = () => (
         <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
-            <Form.Item label="Name" name={['todo', 'name']}>
-                <Input value={name} placeholder="Enter name" onChange={onNameChange}/>
+            <Form.Item name={['todo', 'name']} label="Name">
+                <Input name={name}  placeholder={name} onChange={onNameChange}/>
             </Form.Item>
             <Form.Item label="Description" name={['todo', 'description']}>
-                <Input.TextArea value={description} placeholder="Enter Description" onChange={onDescriptionChange}/>
+                <Input.TextArea placeholder={description} onChange={onDescriptionChange}/>
             </Form.Item>
             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
                 <Button type="primary" htmlType="submit">
