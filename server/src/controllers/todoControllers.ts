@@ -75,4 +75,20 @@ const deleteTodo = async (req: Request, res: Response): Promise<void> => {
     }
 }
 
-export { getTodos, addTodo, updateTodo, deleteTodo }
+
+const detailTodo = async (req: Request, res: Response): Promise<void> => {
+
+    try {
+        const detail: ITodo | null = await Todo.findById(req.params.id)
+        res.status(200).json({
+            message: 'Detail',
+            todo: detail,
+        })
+    } catch (error) {
+        throw error
+    }
+}
+
+
+
+export { getTodos, addTodo, updateTodo, deleteTodo, detailTodo }

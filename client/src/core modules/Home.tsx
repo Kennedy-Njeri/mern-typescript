@@ -49,6 +49,16 @@ const Home = () => {
                 </Space>
             },
         },
+        {
+            title: 'Action',
+            key: 'action',
+            render: (row) => {
+                return <Space size="middle">
+                    <Link to={`/update-todo/${row._id}`}>Update</Link>
+
+                </Space>
+            },
+        },
     ];
     
 

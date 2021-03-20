@@ -7,4 +7,5 @@ router.get("/todos", todoControllers_1.getTodos);
 router.post("/add-todo", todoControllers_1.addTodo);
 router.put("/edit-todo/:id", todoControllers_1.updateTodo);
 router.delete("/delete-todo/:id", todoControllers_1.deleteTodo);
+router.get("/todo/:id", todoControllers_1.detailTodo);
 exports.default = router;
